@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>2048 - Pink Edition</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="header">
+    <h1>Pinkie 2048</h1>
+    <div class="controls-top">
+      <div class="score-box">
+        <div>Счёт</div>
+        <div id="score">0</div>
+      </div>
+      <div class="buttons">
+        <button id="newGameBtn" class="btn">Начать заново</button>
+        <button id="undoBtn" class="btn">Отмена хода</button>
+        <button id="leaderBtn" class="btn">Таблица лидеров</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="game-area">
+      <div id="gameContainer" class="game-container" aria-label="Игровое поле" tabindex="0">
+        <div class="grid"></div>
+        <div class="tiles-layer"></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="mobileControls" class="mobile-controls hidden">
+    <div class="controls-row">
+      <button id="upBtn" class="control-btn" data-direction="up">↑</button>
+    </div>
+    <div class="controls-row">
+      <button id="leftBtn" class="control-btn" data-direction="left">←</button>
+      <button id="downBtn" class="control-btn" data-direction="down">↓</button>
+      <button id="rightBtn" class="control-btn" data-direction="right">→</button>
+    </div>
+  </div>
+
+  <div id="gameOverModal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <h2 id="modalMessage">Игра окончена</h2>
+      <div id="saveRow" class="save-row">
+        <input id="playerName" type="text" placeholder="Ваше имя" maxlength="30" />
+        <button id="saveScoreBtn" class="btn">Сохранить результат</button>
+      </div>
+      <div class="modal-actions">
+        <button id="modalRestartBtn" class="btn">Начать заново</button>
+        <button id="modalCloseBtn" class="btn btn-secondary">Закрыть</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="leaderboardModal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-content leaderboard-content">
+      <h2>Таблица лидеров - Топ 10</h2>
+      <div class="leaders-container">
+        <table id="leadersTable" class="leaders-table" aria-label="Таблица лидеров">
+          <thead>
+            <tr><th>№</th><th>Имя</th><th>Очки</th><th>Дата</th></tr>
+          </thead>
+          <tbody>
+            <!-- генерирует джава -->
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-actions">
+        <button id="closeLeadersBtn" class="btn">Закрыть</button>
+        <button id="clearLeadersBtn" class="btn btn-secondary">Очистить</button>
+      </div>
+    </div>
+  </div>
+  <script src="script.js" defer></script>
+</body>
+</html>
