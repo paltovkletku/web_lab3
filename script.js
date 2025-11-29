@@ -347,6 +347,16 @@ function drawGrid(previousGrid = null) {
   }
 }
 
+function showWinModal() {
+  modalMessage.textContent = `Поздравляем! Вы набрали 2048! Ваш счёт: ${score}`;
+  saveRow.classList.remove('hidden');
+  playerNameInput.value = '';
+  playerNameInput.style.display = '';
+  saveScoreBtn.style.display = '';
+  gameOverModal.classList.remove('hidden');
+  updateMobileControls();
+}
+
 function startNewGame() {
   grid = createEmptyGrid();
   score = 0;
@@ -364,20 +374,49 @@ function makeMove(direction) {
   if (gameOver) return false;
   const oldGrid = copyGrid(grid);
   saveForUndo();
+  
   let result;
   if (direction === 'left') result = moveLeft(grid);
   else if (direction === 'right') result = moveRight(grid);
   else if (direction === 'up') result = moveUp(grid);
   else if (direction === 'down') result = moveDown(grid);
   else return false;
+  
   if (!result.moved) return false;
+  
   grid = result.grid;
   score += result.gained;
+  
+  // проверка на победу (2048)
+  let hasWon = false;
+  for (let row = 0; row < SIZE; row++) {
+    for (let col = 0; col < SIZE; col++) {
+      if (grid[row][col] === 128) {
+        hasWon = true;
+        break;
+      }
+    }
+    if (hasWon) break;
+  }
+  
+  if (hasWon) {
+    gameOver = true;
+    showWinModal();
+    saveGame();
+    drawGrid(oldGrid);
+    updateMobileControls();
+    return true;
+  }
+  
+  // новые плитки если игра не завершена
   addNewTiles(grid, Math.random() < 0.25 ? 2 : 1);
+  
+  // проверка на проигрыш (нет ходов)
   if (!canMove(grid)) {
     gameOver = true;
     showGameOverModal();
   }
+  
   saveGame();
   drawGrid(oldGrid);
   updateMobileControls();
