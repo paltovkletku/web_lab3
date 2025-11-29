@@ -438,7 +438,7 @@ function undoMove() {
 }
 
 function showGameOverModal() {
-  modalMessage.textContent = `Игра окончена — ваш счёт: ${score}`;
+  modalMessage.textContent = `Игра окончена. Ваш счёт: ${score}`;
   saveRow.classList.remove('hidden');
   playerNameInput.value = '';
   playerNameInput.style.display = '';
